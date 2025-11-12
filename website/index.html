@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spike Carter | Data Scientist & Web Developer</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        :root {
+            /* THEME: Light Grey & Crimson */
+            --primary: #DC143C; /* Crimson */
+            --primary-hover: #b01030; /* Darker Crimson for hover */
+            --background: #f3f4f6; /* Light Grey */
+            --text: #1f2937; /* Dark Charcoal */
+            --text-muted: #6b7280; /* Medium Grey */
+            --card-bg: #ffffff; /* White */
+            --accent: #ffe4e6; /* Very Light Red/Pink for backgrounds */
+            --border: #e5e7eb; /* Light grey border */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(255, 255, 255, 0.95); /* White translucent */
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            /* Light gradient */
+            background: radial-gradient(circle at top right, #e5e7eb 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, var(--accent) 0%, transparent 30%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: #111827;
+        }
+
+        .hero span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: #111827;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- ABOUT --- */
+        .about-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .about-image {
+            flex-shrink: 0;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            /* Crimson Glow */
+            box-shadow: 0 0 0 8px rgba(220, 20, 60, 0.15); 
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+        
+        .about-text p {
+            color: var(--text-muted);
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* --- PROJECTS GRID --- */
+        .category-label {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+            /* Subtle shadow for light mode */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(220, 20, 60, 0.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-link {
+            color: #111827;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .card-link:hover {
+            color: var(--primary);
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .contact-container p {
+            color: var(--text-muted);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            /* Very light crimson background */
+            background: rgba(220, 20, 60, 0.05); 
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(220, 20, 60, 0.1);
+        }
+
+        .contact-item strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            background-color: #ffffff;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .about-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Spike.C</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#datascience">Data Science</a></li>
+            <li><a href="#webdev">Web Dev</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Hi, I'm <span>Spike Carter</span>.<br>Building Logic & Visuals.</h1>
+        <p>21-year-old Data Scientist and Web Developer transforming complex data into actionable insights and stunning interfaces.</p>
+        <div class="hero-btns">
+            <a href="#projects" class="btn">View Work</a>
+            <a href="#contact" class="btn btn-outline">Hire Me</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <img src="https://assets-c3d.f-static.com/uploads/2660505/2000_1688654637207.jpg" alt="Spike Carter Profile" class="about-image">
+            <div class="about-text">
+                <p>I am a passionate technologist based in the US. At 21, I bridge the gap between analytical backend logic and creative frontend design.</p>
+                <br>
+                <p>With a background in statistical modeling and full-stack development, I don't just build websites—I build intelligent systems that solve real-world problems in education, finance, and commerce.</p>
+                
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h3>4+</h3>
+                        <p>Years Coding</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>20+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+
+        <div id="datascience">
+            <h3 class="category-label">Data Science & AI</h3>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">EdTech</span>
+                        <h3 class="card-title">Adaptive Learning Pathway</h3>
+                        <p class="card-desc">A machine learning model that predicts student performance and suggests personalized curriculum adjustments to improve grades.</p>
+                        <a href="#" class="card-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">Business Intelligence</span>
+                        <h3 class="card-title">Customer Churn Predictor</h3>
+                        <p class="card-desc">Analyzed user behavior data to identify at-risk customers, helping businesses reduce churn by 15% through targeted retention strategies.</p>
+                        <a href="#" class="card-link">View Analysis →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">Apparel / Retail</span>
+                        <h3 class="card-title">Fashion Trend Forecaster</h3>
+                        <p class="card-desc">Using NLP on social media data to predict upcoming fashion trends for apparel brands, optimizing inventory management.</p>
+                        <a href="#" class="card-link">View Project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">Finance</span>
+                        <h3 class="card-title">Stock Volatility Analyzer</h3>
+                        <p class="card-desc">Time-series forecasting model using Python & TensorFlow to predict short-term market volatility for high-frequency trading.</p>
+                        <a href="#" class="card-link">View Github Repo →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="webdev">
+            <h3 class="category-label">Web Development</h3>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">E-Commerce</span>
+                        <h3 class="card-title">KartMax Storefront</h3>
+                        <p class="card-desc">A fully responsive e-commerce platform with Stripe integration, cart management, and a custom CMS dashboard.</p>
+                        <a href="#" class="card-link">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">Database Management</span>
+                        <h3 class="card-title">EduBase System</h3>
+                        <p class="card-desc">A secure school database management interface allowing admins to manage student records, grades, and attendance efficiently.</p>
+                        <a href="#" class="card-link">View Architecture →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-content">
+                        <span class="card-tag">UI/UX Design</span>
+                        <h3 class="card-title">DevFolio V2</h3>
+                        <p class="card-desc">A minimalist, high-performance portfolio template for developers, featuring dark mode and smooth scroll animations.</p>
+                        <a href="#" class="card-link">Download Template →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <p>Currently open for freelance projects and full-time opportunities. Let's build something amazing together.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Phone</strong>
+                    +1 (740) 461-9427
+                </div>
+                <div class="contact-item">
+                    <strong>Email</strong>
+                    spikespeaks1066@gmail.com
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Spike Carter. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
